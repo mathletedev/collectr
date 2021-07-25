@@ -3,7 +3,7 @@ require("dotenv-safe").config();
 module.exports = {
 	reactStrictMode: true,
 	env: {
-		EMAIL_USERNAME: process.env.EMAIL_USERNAME,
-		EMAIL_PASSWORD: process.env.EMAIL_PASSWORD
+		NEXT_PUBLIC_EMAIL_USERNAME: process.env.NEXT_PUBLIC_EMAIL_USERNAME,
+		NEXT_PUBLIC_EMAIL_PASSWORD: process.env.NEXT_PUBLIC_EMAIL_PASSWORD
 	}
 };
