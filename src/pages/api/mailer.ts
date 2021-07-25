@@ -10,8 +10,6 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 			text: req.body.text
 		},
 		(err, info) => {
-			console.log(process.env.NEXT_PUBLIC_EMAIL_PASSWORD);
-
 			if (err) console.error(err);
 			console.log(info);
 		}
