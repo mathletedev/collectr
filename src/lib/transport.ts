@@ -1,10 +1,9 @@
-import "dotenv-safe/config";
 import { createTransport } from "nodemailer";
 
 export const transporter = createTransport({
 	service: "gmail",
 	auth: {
-		user: process.env.EMAIL_USERNAME,
-		pass: process.env.EMAIL_PASSWORD
+		user: process.env.NEXT_PUBLIC_EMAIL_USERNAME,
+		pass: process.env.NEXT_PUBLIC_EMAIL_PASSWORD
 	}
 });
