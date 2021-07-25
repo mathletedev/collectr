@@ -4,8 +4,8 @@ import { transporter } from "../../lib/transport";
 export default (req: NextApiRequest, res: NextApiResponse) => {
 	transporter.sendMail(
 		{
-			from: process.env.NEXT_PUBLIC_EMAIL_USERNAME,
-			to: process.env.NEXT_PUBLIC_EMAIL_USERNAME,
+			from: process.env.EMAIL_USERNAME,
+			to: process.env.EMAIL_USERNAME,
 			subject: req.body.subject,
 			text: req.body.text
 		},
