@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { transporter } from "../../lib/transport";
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
+	console.log(process.env.NEXT_PUBLIC_EMAIL_USERNAME);
 	transporter.sendMail(
 		{
 			from: process.env.NEXT_PUBLIC_EMAIL_USERNAME,
