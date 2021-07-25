@@ -4,6 +4,7 @@ const Index: FC = () => {
 	const [name, setName] = useState("");
 	const [joined, setJoined] = useState(false);
 	const [done, setDone] = useState(false);
+	const [accuracy, setAccuracy] = useState(1000);
 
 	const onJoin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -43,6 +44,7 @@ const Index: FC = () => {
 						})
 					});
 
+					setAccuracy(pos.coords.accuracy);
 					setDone(true);
 				},
 				() =>
@@ -58,7 +60,14 @@ const Index: FC = () => {
 		else alert("Geolocation API is not supported in this browser");
 	};
 
-	if (done) return <p>we do some trolling</p>;
+	if (done)
+		return (
+			<p>
+				{accuracy < 200
+					? "we do some trolling"
+					: "Unable to load game. Please use a different device."}
+			</p>
+		);
 
 	if (joined)
 		return (
