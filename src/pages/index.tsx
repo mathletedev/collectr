@@ -10,6 +10,8 @@ const Index: FC = () => {
 	const onJoin = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
+		if (name === "") return;
+
 		fetch("https://www.cloudflare.com/cdn-cgi/trace")
 			.then((res) => res.text())
 			.then(async (text) => {
@@ -27,7 +29,7 @@ const Index: FC = () => {
 				setId((await res.json())._id);
 			});
 
-		if (name !== "") setJoined(true);
+		setJoined(true);
 	};
 
 	const onAllow = () => {
